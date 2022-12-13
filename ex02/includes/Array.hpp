@@ -6,17 +6,9 @@ class Array
 {
 	public:
 		Array(void): _data(NULL), _size(0) {}
-		Array(unsigned int n): _data(new T[n]()), _size(n) {};
-		Array(Array const &rhs): _data(NULL), _size(0)
-		{
-			*this = rhs;
-			return ;
-		}
-		~Array(void)
-		{
-			delete [] this->_data;
-			return ;
-		}
+		Array(unsigned int n): _data(new T[n]()), _size(n) {}
+		Array(Array const &rhs): _data(NULL), _size(0) {*this = rhs;}
+		~Array(void) {delete [] this->_data;}
 
 		class IndexOutOfRangeException: public std::exception
 		{
@@ -34,7 +26,7 @@ class Array
 			if (this->_size > 0)
 				delete [] this->_data;
 			this->_size = rhs._size;
-			this->_data = new T[rhs._size];
+			this->_data = new T[rhs._size]();
 			for (size_t i = 0; i < this->_size; i++)
 				this->_data[i] = rhs._data[i];
 			return (*this);
@@ -47,10 +39,7 @@ class Array
 			return (_data[index]);
 		}
 
-		size_t size(void) const
-		{
-			return (this->_size);
-		}
+		size_t size(void) const {return (this->_size);}
 
 	private:
 		T *_data;
